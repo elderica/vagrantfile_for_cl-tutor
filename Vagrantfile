@@ -47,10 +47,15 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get upgrade -y
     apt-get install -y language-pack-ja
-    update-locale LANG=ja_JP.UTF-8
-    wget -O /tmp/ros.deb https://github.com/roswell/roswell/releases/download/v18.3.10.89/roswell_18.3.10.89-1_amd64.deb
-    dpkg -i /tmp/ros.deb
-    apt install -y git build-essential automake libcurl4-openssl-dev libncursesw5-dev libncurses5-dev
+    update-locale LANG=ja_JP.UTF-8 
+    #wget -O /tmp/ros.deb https://github.com/roswell/roswell/releases/download/v18.3.10.89/roswell_18.3.10.89-1_amd64.deb
+    #dpkg -i /tmp/ros.deb
+    apt install -y git build-essential automake libcurl4-openssl-dev libncursesw5-dev libncurses5-dev git
+    cd /tmp && sudo -u vagrant -i git clone https://github.com/roswell/roswell.git /tmp/roswell
+    cd /tmp/roswell && sudo -u vagrant sh bootstrap
+    cd /tmp/roswell && sudo -u vagrant ./configure
+    cd /tmp/roswell && sudo -u vagrant make
+    cd /tmp/roswell && make install
     sudo -u vagrant -i ros
     sudo -u vagrant -i ros install cxxxr/lem
     sudo -u vagrant -i ros install t-cool/cl-tutor
